@@ -1,3 +1,19 @@
+# Fork Description
+
+If uconsole display is rotated 90 degrees to be portrait instead of landscape by default, the trackball remains in its original orientation, making mouse movement tricky. Problem is that trackball always assumes the same "bottom-of-screen" (keyboard is always the bottom of the screen), regardless of actual screen orientation.
+
+This is more like a hack, where the user can change the trackball's perceived "bottom-of-screen" through a combination of key presses, as follows:
+
+<Select> <Start> <Select> <Start> <arrow key that represents the new bottom>
+
+For example, if the screen is rotated CW 90 degrees, where the original left becomes the new bottom, you can use the following combination:
+
+<Select> <Start> <Select> <Start> <arrow left>
+
+Then, you can use the trackball normally while holding your uconsole sideways.
+
+---
+
 # uConsole
 
 
