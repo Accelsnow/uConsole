@@ -122,6 +122,42 @@ void trackball_task(DEVTERM*dv) {
  
 }
 
+void set_trackball_orientation(TrackballOrientation new_trackball_orientation) {
+  detachInterrupt(LEFT_PIN);
+  detachInterrupt(RIGHT_PIN);
+  detachInterrupt(UP_PIN);
+  detachInterrupt(DOWN_PIN);
+  switch(new_trackball_orientation) {
+    default:
+    case TrackballOrientation::TRACKBALL_DOWN:
+      attachInterrupt(LEFT_PIN, &interrupt<AXIS_X, -1> , ExtIntTriggerMode::CHANGE);
+      attachInterrupt(RIGHT_PIN, &interrupt<AXIS_X, 1>, ExtIntTriggerMode::CHANGE);
+      attachInterrupt(UP_PIN, &interrupt<AXIS_Y, -1>, ExtIntTriggerMode::CHANGE);
+      attachInterrupt(DOWN_PIN, &interrupt<AXIS_Y, 1>, ExtIntTriggerMode::CHANGE);
+      break;
+
+    case TrackballOrientation::TRACKBALL_UP:
+      attachInterrupt(LEFT_PIN, &interrupt<AXIS_X, 1> , ExtIntTriggerMode::CHANGE);
+      attachInterrupt(RIGHT_PIN, &interrupt<AXIS_X, -1>, ExtIntTriggerMode::CHANGE);
+      attachInterrupt(UP_PIN, &interrupt<AXIS_Y, 1>, ExtIntTriggerMode::CHANGE);
+      attachInterrupt(DOWN_PIN, &interrupt<AXIS_Y, -1>, ExtIntTriggerMode::CHANGE);
+      break;
+
+    case TrackballOrientation::TRACKBALL_LEFT:
+      attachInterrupt(LEFT_PIN, &interrupt<AXIS_Y, 1> , ExtIntTriggerMode::CHANGE);
+      attachInterrupt(RIGHT_PIN, &interrupt<AXIS_Y, -1>, ExtIntTriggerMode::CHANGE);
+      attachInterrupt(UP_PIN, &interrupt<AXIS_X,-1>, ExtIntTriggerMode::CHANGE);
+      attachInterrupt(DOWN_PIN, &interrupt<AXIS_X, 1>, ExtIntTriggerMode::CHANGE);
+      break;
+
+    case TrackballOrientation::TRACKBALL_RIGHT:
+      attachInterrupt(LEFT_PIN, &interrupt<AXIS_Y, -1> , ExtIntTriggerMode::CHANGE);
+      attachInterrupt(RIGHT_PIN, &interrupt<AXIS_Y, 1>, ExtIntTriggerMode::CHANGE);
+      attachInterrupt(UP_PIN, &interrupt<AXIS_X, 1>, ExtIntTriggerMode::CHANGE);
+      attachInterrupt(DOWN_PIN, &interrupt<AXIS_X, -1>, ExtIntTriggerMode::CHANGE);
+      break;
+  }
+}
 
 void trackball_init(DEVTERM*dv){
 

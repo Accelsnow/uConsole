@@ -21,5 +21,6 @@
 void trackball_init(DEVTERM*);
 void trackball_task(DEVTERM*);
 
+void set_trackball_orientation(TrackballOrientation new_trackball_orientation);
 
 #endif

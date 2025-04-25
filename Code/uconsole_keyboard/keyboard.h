@@ -18,6 +18,7 @@
 #define MATRIX_COLS 8
 
 #define MATRIX_KEYS 64 // 8*8
+#define TRACKBALL_ORIENTATION_KEY_COMBO 4
 
 #ifndef DEBOUNCE
 #   define DEBOUNCE 20

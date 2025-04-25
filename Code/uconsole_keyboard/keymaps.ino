@@ -1,6 +1,7 @@
 #include "devterm.h"
 #include "keyboard.h"
 #include "keys.h"
+#include "trackball.h"
 
 #define EMP 0XFFFF
 
@@ -82,6 +83,9 @@ const uint16_t keyboard_maps[][MATRIX_KEYS] = {
 uint16_t keyboard_pick_map[MATRIX_KEYS] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 static uint8_t fn_actions[MATRIX_KEYS] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+const uint16_t trackball_orientation_key_combo[TRACKBALL_ORIENTATION_KEY_COMBO] = {_SELECT_KEY, _START_KEY, _SELECT_KEY, _START_KEY};
+static uint8_t trackball_orientation_progress = 0;
 
 const uint16_t keys_maps[][KEYS_NUM] = {
 
@@ -186,6 +190,18 @@ void keyboard_action(DEVTERM*dv, uint8_t row, uint8_t col, uint8_t mode) {
   if (mode == KEY_PRESSED) {
     if ( keyboard_pick_map[addr] == 0) {
       keyboard_pick_map[addr] = k;
+    }
+  }
+
+  if (mode == KEY_RELEASED) {
+    // trackball orientation change key combo check
+    if (trackball_orientation_progress >= TRACKBALL_ORIENTATION_KEY_COMBO) {
+      trackball_orientation_progress = 0;
+    }
+    if (trackball_orientation_progress < TRACKBALL_ORIENTATION_KEY_COMBO && k == trackball_orientation_key_combo[trackball_orientation_progress]) {
+      trackball_orientation_progress++;
+    } else {
+      trackball_orientation_progress = 0;
     }
   }
 
@@ -476,6 +492,10 @@ void keypad_action(DEVTERM*dv, uint8_t col, uint8_t mode) {
     if ( keys_pick_map[col] == 0) {
       keys_pick_map[col] = k;
     }
+  }
+
+  if (mode == KEY_RELEASED) {
+    trackball_orientation_progress = 0;
   }
 
   switch (k) {

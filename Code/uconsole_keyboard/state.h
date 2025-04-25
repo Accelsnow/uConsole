@@ -12,6 +12,14 @@ enum class TrackballMode : uint8_t {
   Mouse,
 };
 
+// corresponding arrow key is considered the "bottom"
+enum class TrackballOrientation : uint8_t {
+  TRACKBALL_DOWN = 0,
+  TRACKBALL_UP = 1,
+  TRACKBALL_LEFT = 2,
+  TRACKBALL_RIGHT = 3
+};
+
 class State
 {
   public:
