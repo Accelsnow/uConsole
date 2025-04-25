@@ -12,6 +12,8 @@ For example, if the screen is rotated CW 90 degrees, where the original left bec
 
 Then, you can use the trackball normally while holding your uconsole sideways.
 
+**Personal note**: if you accidentally bricked your keyboard while flashing firmware, you can check [my blog](https://accelsnow.com/uConsole-Keyboard-Firmware-Flashing-Experience) for a compilation techniques I found online to salvage your keyboard.
+
 ---
 
 # uConsole
